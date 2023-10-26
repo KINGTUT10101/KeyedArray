@@ -14,7 +14,7 @@ function KeyedArray:new ()
     }
     
     -- Copies the method references into the object
-    for k, v in self do
+    for k, v in pairs (self) do
         if type(v) == "function" and k ~= "new" then
             obj[k] = v
         end
@@ -37,7 +37,7 @@ function KeyedArray:insert (key, value, position)
         local container = {key = key, position = position, value = value} -- Values are placed in a container to avoid duplication
         
         self.table[key] = container
-        table.insert (self.array, key, container)
+        table.insert (self.array, position, container)
         return true
     else
         return false
@@ -47,17 +47,17 @@ end
 --- Removes an item from the keyed array.
 -- @raise When the provided keyType is invalid
 -- @param key (table key) The key or position of the item
--- @param keyType (string) The type of key being used
-function KeyedArray:delete (key, keyType)
-    if keyType == "array" then
+-- @param refType (string) The type of key being used
+function KeyedArray:delete (key, refType)
+    if refType == "array" then
         if self.array[key] ~= nil then
             local container = self.array[key]
             table.remove (self.array, container.position)
             self.table[container.key] = nil
         end
-    elseif keyType == "table" then
+    elseif refType == "key" then
         if self.table[key] ~= nil then
-            local container = self.array[key]
+            local container = self.table[key]
             table.remove (self.array, container.position)
             self.table[container.key] = nil
         end
@@ -69,15 +69,15 @@ end
 --- Gets the value of an item from the keyed array.
 -- @raise When the provided keyType is invalid
 -- @param key (table key) The key or position of the item
--- @param keyType (string) The type of key being used
-function KeyedArray:get (key, keyType)
-    if keyType == "array" then
+-- @param refType (string) The type of key being used
+function KeyedArray:get (key, refType)
+    if refType == "array" then
         if self.array[key] == nil then
             return nil
         else
             return self.array[key].value
         end
-    elseif keyType == "table" then
+    elseif refType == "key" then
         if self.table[key] == nil then
             return nil
         else
@@ -95,6 +95,8 @@ function KeyedArray:size ()
 end
 
 --- An iterator function for the keyed array object.
+-- This will iterate over the items based on their order in the array
+-- @usage for pos, key, value in KeyedArrayObj:pairs () do print (value) end
 -- @return (function) An iterator function
 function KeyedArray:pairs ()
    local index = 0
@@ -103,7 +105,7 @@ function KeyedArray:pairs ()
       index = index + 1
 		
       if index <= #self.array then
-         return self.array[index].value
+         return self.array[index].position, self.array[index].key, self.array[index].value
       end
    end
 end
