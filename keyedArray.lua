@@ -47,15 +47,15 @@ end
 --- Removes an item from the keyed array.
 -- @raise When the provided keyType is invalid
 -- @param key (table key) The key or position of the item
--- @param refType (string) The type of key being used
-function KeyedArray:delete (key, refType)
-    if refType == "array" then
+-- @param indexType (string) The type of index being used (either "array" or "key")
+function KeyedArray:delete (key, indexType)
+    if indexType == "array" then
         if self.array[key] ~= nil then
             local container = self.array[key]
             table.remove (self.array, container.position)
             self.table[container.key] = nil
         end
-    elseif refType == "key" then
+    elseif indexType == "key" then
         if self.table[key] ~= nil then
             local container = self.table[key]
             table.remove (self.array, container.position)
@@ -69,15 +69,15 @@ end
 --- Gets the value of an item from the keyed array.
 -- @raise When the provided keyType is invalid
 -- @param key (table key) The key or position of the item
--- @param refType (string) The type of key being used
-function KeyedArray:get (key, refType)
-    if refType == "array" then
+-- @param indexType (string) The type of index being used (either "array" or "key")
+function KeyedArray:get (key, indexType)
+    if indexType == "array" then
         if self.array[key] == nil then
             return nil
         else
             return self.array[key].value
         end
-    elseif refType == "key" then
+    elseif indexType == "key" then
         if self.table[key] == nil then
             return nil
         else
