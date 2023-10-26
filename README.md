@@ -55,7 +55,7 @@ KeyedArray:delete (key, indexType)
 -- @raise When the provided keyType is invalid
 -- @param key (table key) The key or position of the item
 -- @param indexType(string) The type of key being used
-function KeyedArray:get (key, indexType)
+KeyedArray:get (key, indexType)
 
 --- Gets the current number of items inside the object.
 -- @return (int) The number of items inside the object
@@ -65,5 +65,5 @@ KeyedArray:size ()
 -- This will iterate over the items based on their order in the array
 -- @usage for pos, key, value in KeyedArrayObj:pairs () do print (value) end
 -- @return (function) An iterator function
-function KeyedArray:pairs ()
+KeyedArray:pairs ()
 ```
