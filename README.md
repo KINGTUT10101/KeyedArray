@@ -9,7 +9,7 @@ To use the class in your projects, just download keyedArray.lua and require it l
 ### Example Usage:
 
 ```lua
-local KeyedArray =- require ("keyedArray")
+local KeyedArray = require ("keyedArray")
 local KeyedArrayObj = KeyedArray:new ()
 
 KeyedArrayObj:insert ("test1", 10)
