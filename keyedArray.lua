@@ -109,3 +109,5 @@ function KeyedArray:pairs ()
       end
    end
 end
+
+return KeyedArray
