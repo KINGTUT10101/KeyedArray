@@ -1,6 +1,6 @@
 # Keyed Array
 
-A small, pure Lua library that adds keyed arrays. Items in a keyed array can be referred to by their position in the array or an assigned key. It is similar to an ordered dictionary.
+A small, pure Lua library that adds keyed arrays. Items in a keyed array can be referred to by their position in the array or an assigned key, similar to an ordered dictionary.
 
 To use the class in your projects, just download keyedArray.lua and require it like this:
 
