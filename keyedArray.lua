@@ -110,4 +110,25 @@ function KeyedArray:pairs ()
    end
 end
 
+--- Gets the corresponding key or array index for a value.
+-- @param key (table key) The key or position of the item
+-- @param indexType (string) The type of index being used (either "array" or "key")
+function KeyedArray:getKey(key, indexType)
+    if indexType == "array" then
+        if self.array[key] ~= nil then
+            local container = self.array[key]
+
+            return container.key
+        end
+    elseif indexType == "key" then
+        if self.table[key] ~= nil then
+            local container = self.table[key]
+
+            return container.position
+        end
+    else
+        error("KeyedArray: undefined key type")
+    end
+end
+
 return KeyedArray
