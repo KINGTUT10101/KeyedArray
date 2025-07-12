@@ -61,6 +61,11 @@ KeyedArray:get (key, indexType)
 -- @return (int) The number of items inside the object
 KeyedArray:size ()
 
+--- Gets the corresponding key or array index for a value.
+-- @param key (table key) The key or position of the item
+-- @param indexType (string) The type of index being used (either "array" or "key")
+KeyedArray:getKey (key, indexType)
+
 --- An iterator function for the keyed array object.
 -- This will iterate over the items based on their order in the array
 -- @usage for pos, key, value in KeyedArrayObj:pairs () do print (value) end
