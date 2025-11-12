@@ -38,6 +38,12 @@ function KeyedArray:insert (key, value, position)
         
         self.table[key] = container
         table.insert (self.array, position, container)
+
+		-- Modify the position of all items after the inserted item
+        for i = position + 1, #self.array do
+            self.array[i].position = self.array[i].position + 1
+        end
+		
         return true
     else
         return false
@@ -54,12 +60,22 @@ function KeyedArray:delete (key, indexType)
             local container = self.array[key]
             table.remove (self.array, container.position)
             self.table[container.key] = nil
+
+			-- Modify the position of all items after the removed item
+            for i = container.position, #self.array do
+                self.array[i].position = self.array[i].position - 1
+            end
         end
     elseif indexType == "key" then
         if self.table[key] ~= nil then
             local container = self.table[key]
             table.remove (self.array, container.position)
             self.table[container.key] = nil
+
+			-- Modify the position of all items after the removed item
+            for i = container.position, #self.array do
+                self.array[i].position = self.array[i].position - 1
+            end
         end
     else
         error ("KeyedArray: undefined key type")
